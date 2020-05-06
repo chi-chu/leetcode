@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -24,7 +23,7 @@ func main() {
 	//fmt.Println(leetcode49([]string{"eat", "tea", "tan", "ate", "nat", "bat"}))
 	//fmt.Println(leetcode50(2.00000, 10))
 	//n := [][]int{{1,2,3,4}, {5,6,7,8}, {9,10,11,12},{13,14,15,16}}
-	n :=[][]int{{1,2,3},{4,5,6},{7,8,9}}
+	/*n :=[][]int{{1,2,3},{4,5,6},{7,8,9}}
 	for _,v := range n {
 		fmt.Println(v)
 	}
@@ -32,7 +31,11 @@ func main() {
 	leetcode48(n)
 	for _,v := range n {
 		fmt.Println(v)
-	}
+	}*/
+	//fmt.Println(leetcode98(generateNodeTree([]int{0.-1})))
+	//fmt.Println(leetcode46([]int{1,2,3}))
+	//printNodeList(leetcode23([]*Node{generateNodeList([]int{1,4,5}), generateNodeList([]int{1,3,4}), generateNodeList([]int{2,6})}))
+	printNodeList(leetcode25(generateNodeList([]int{1,2,3,4,5}), 3))
 }
 
 /*
@@ -170,7 +173,6 @@ func AddTwoNodeList(nodeOne, nodeTwo *Node) *Node {
 func searchTargetCount(nums []int, target int) int {
 	leftIndex := searchBorder(nums, target, true)
 	rightIndex := searchBorder(nums, target, false)
-
 	return rightIndex - leftIndex + 1
 }
 

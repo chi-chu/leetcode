@@ -2,9 +2,22 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
+
+func leetcode6(s string, numRows int) string {
+	ret := ""
+	index := 0
+	lens := len(s)
+	for i:=0; i<numRows; i++ {
+		for index < lens {
+
+		}
+	}
+	return ret
+}
 
 func getRomaNum(n int) string {
 	ret := ""
@@ -78,8 +91,7 @@ func threeSum(nums []int) [][]int {
 	return ret
 }
 
-//leetcode 22
-func generateParenthesis(n int) []string {
+func leetcode22(n int) []string {
 	ret := make([]string,0)
 	var leftkh,rightkh int
 	var tmp string
@@ -105,15 +117,73 @@ func generate(n, total, leftkh, rightkh int, tmp string, ret *[]string) {
 	}
 }
 
-//leetcode 6
-func zstring(s string, numRows int) string {
-	ret := ""
-	index := 0
-	lens := len(s)
-	for i:=0; i<numRows; i++ {
-		for index < lens {
-			
+func leetcode23(lists []*Node) *Node {
+	if len(lists) == 0 {
+		return nil
+	}
+	var head, ret *Node
+	var tmp int
+	for {
+		tmp = -1
+		for k,v := range lists {
+			if v == nil {
+				continue
+			}
+			if tmp == -1 {
+				tmp = k
+			}else{
+				if v.Value < lists[tmp].Value {
+					tmp = k
+				}
+			}
 		}
+		if tmp == -1 {
+			break
+		}
+		if head == nil{
+			head = lists[tmp]
+			ret = head
+		}else{
+			head.Next = lists[tmp]
+			head = head.Next
+		}
+		lists[tmp] = lists[tmp].Next
+	}
+	return ret
+}
+
+func leetcode25(head *Node, k int) *Node{
+	var ret, pre, next, current, listC *Node
+	var num int
+	var flag bool
+	pre = nil
+	current = head
+	for current.Next != nil {
+		if num == 0 {
+			listC = current
+		}
+		next = current.Next
+		current.Next = pre
+		pre = current
+		current = next
+		num++
+		if num == k {
+			if !flag {
+				ret = pre
+				flag = true
+			}
+			num = 0
+			listC.Next = next
+		}
+	}
+	if num != k {
+		//反转回去最后不足k个节点
+		for listC.Next != nil {
+
+		}
+	}
+	if ret == nil {
+		return head
 	}
 	return ret
 }
@@ -153,8 +223,7 @@ func longestValidParentheses(s string) int {
 	return maxlen
 }
 
-//leetcode 39
-func combinationSum(candidates []int, target int) [][]int {
+func leetcode39(candidates []int, target int) [][]int {
 	var ret [][]int
 	for i,_ := range candidates{
 		getTarget(candidates, i, target, 0, []int{}, &ret)
@@ -283,19 +352,19 @@ func leetcode45(nums []int)int {
 func leetcode46(nums []int) [][]int {
 	var ans [][]int
 	var res []int
-	huisu(nums,res,&ans)
+	huisu(nums, res, &ans)
 	return ans
 }
 
-func huisu(nums []int,res []int,ans *[][]int){
-	if len(nums)<1{
-		*ans=append(*ans,res)
+func huisu(nums []int,res []int, ans *[][]int){
+	if len(nums) < 1{
+		*ans = append(*ans, res)
 		return
 	}
-	for i:=0;i<len(nums);i++{
-		n:=make([]int,len(nums))
+	for i := 0; i < len(nums); i++ {
+		n := make([]int, len(nums))
 		copy(n,nums)//复制一份nums，然后append（n[:i],n[i+1]...），如果用nums执行上述操作，会导致影响nums，不是原有的nums来执行for循环
-		huisu(append(n[:i],n[i+1:]...),append(res,nums[i]),ans)
+		huisu(append(n[:i], n[i+1:]...), append(res, nums[i]), ans)
 	}
 }
 
@@ -366,6 +435,21 @@ func getLimitPow(x float64, n int) (float64, int) {
 		exp *= 2
 	}
 	return x, exp
+}
+
+//上一波上下边界要在 搜索二叉树范围内
+func leetcode98(root *TreeNode) bool {
+	return checkBST(root, math.MinInt64, math.MaxInt64)
+}
+
+func checkBST(root *TreeNode, lower, upper int) bool {
+	if root == nil {
+		return true
+	}
+	if root.Val <= lower || root.Val >= upper {
+		return false
+	}
+	return checkBST(root.Left, lower, root.Val) && checkBST(root.Right, root.Val, upper)
 }
 
 func leetcode300(nums []int) int {
