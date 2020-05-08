@@ -8,15 +8,27 @@ import (
 )
 
 func leetcode6(s string, numRows int) string {
-	ret := ""
+	if numRows == 1 {
+		return s
+	}
+	retList := make([]string, numRows, numRows)
 	index := 0
-	lens := len(s)
-	for i:=0; i<numRows; i++ {
-		for index < lens {
-
+	var flag bool
+	for _,v := range s {
+		if index == 0 {
+			flag = true
+		}
+		if index + 1 == numRows {
+			flag = false
+		}
+		retList[index] += string(v)
+		if flag {
+			index++
+		}else{
+			index--
 		}
 	}
-	return ret
+	return strings.Join(retList,"")
 }
 
 func getRomaNum(n int) string {

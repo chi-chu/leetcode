@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -35,7 +36,9 @@ func main() {
 	//fmt.Println(leetcode98(generateNodeTree([]int{0.-1})))
 	//fmt.Println(leetcode46([]int{1,2,3}))
 	//printNodeList(leetcode23([]*Node{generateNodeList([]int{1,4,5}), generateNodeList([]int{1,3,4}), generateNodeList([]int{2,6})}))
-	printNodeList(leetcode25(generateNodeList([]int{1,2,3,4,5}), 3))
+	//printNodeList(leetcode25(generateNodeList([]int{1,2,3,4,5}), 3))
+
+	fmt.Println(leetcode6("LEETCODEISHIRING", 4))
 }
 
 /*
