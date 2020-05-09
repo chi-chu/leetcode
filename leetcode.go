@@ -449,6 +449,107 @@ func getLimitPow(x float64, n int) (float64, int) {
 	return x, exp
 }
 
+//穷举超时。。。。
+/*func leetcode62(m, n int) int {
+	var ret int
+	getAllRoute(m, n, 1, 1, &ret)
+	return ret
+}
+func getAllRoute(m, n, right, down int, ret *int) {
+	if right == m && down == n {
+		*ret += 1
+		return
+	}
+	if right < m {
+		getAllRoute(m, n, right+1, down, ret)
+	}
+	if down < n {
+		getAllRoute(m, n, right, down+1, ret)
+	}
+}*/
+
+func leetcode62(m, n int) int {
+	//C(m+n-2, m-1)
+	return 0
+}
+
+//又超时 我擦。。。
+/*func leetcode64(grid [][]int) int {
+	if len(grid) == 0 {
+		return 0
+	}
+	var ret int
+	ret = math.MaxInt64
+	getShortRoute(grid, 0, 0, 0, &ret)
+	return ret
+}
+func getShortRoute(grid [][]int, right, down, tmpVal int, minRounte *int) {
+	tmpVal += grid[down][right]
+	if right + 1 == len(grid[0]) && down + 1 == len(grid) {
+		if tmpVal < *minRounte {
+			*minRounte = tmpVal
+		}
+		return
+	}
+	if right + 1 < len(grid[0]) {
+		getShortRoute(grid, right + 1, down, tmpVal, minRounte)
+	}
+	if down + 1 < len(grid) {
+		getShortRoute(grid, right, down + 1, tmpVal, minRounte)
+	}
+}*/
+func leetcode64(grid [][]int) int {
+	//动态规划
+	if len(grid) == 0 {
+		return 0
+	}
+	var mirrorGrid [][]int
+	//工程级代码 一般不允许修改原变量
+	lenx := len(grid[0])
+	leny := len(grid)
+	mirrorGrid = make([][]int, leny)
+	copy(mirrorGrid, grid)
+	//fmt.Println(mirrorGrid)
+	for i := lenx - 1; i >=0; i-- {
+		for j:= leny - 1; j >= 0; j-- {
+			if i + 1 <= lenx - 1 && j + 1 <= leny - 1 {
+				if mirrorGrid[j+1][i] > mirrorGrid[j][i+1] {
+					mirrorGrid[j][i] = mirrorGrid[j][i+1] + grid[j][i]
+				}else{
+					mirrorGrid[j][i] = mirrorGrid[j+1][i] + grid[j][i]
+				}
+			}else if i + 1 > lenx - 1 && j + 1 <= leny - 1 {
+				mirrorGrid[j][i] = mirrorGrid[j+1][i] + grid[j][i]
+			}else if i + 1 <= lenx - 1 && j + 1 > leny - 1 {
+				mirrorGrid[j][i] = mirrorGrid[j][i+1] + grid[j][i]
+			}else {
+				mirrorGrid[j][i] = grid[j][i]
+			}
+		}
+	}
+	return mirrorGrid[0][0]
+}
+
+func leetcode69(x int) int {
+	//最快应该用二分。
+	if x == 0 {
+		return 0
+	}
+	if x < 4 {
+		return 1
+	}
+	var ret int
+	main := 2
+	for main*main <= x {
+		ret = main
+		main *= main
+	}
+	for ret*ret <= x {
+		ret++
+	}
+	return ret - 1
+}
+
 //上一波上下边界要在 搜索二叉树范围内
 func leetcode98(root *TreeNode) bool {
 	return checkBST(root, math.MinInt64, math.MaxInt64)

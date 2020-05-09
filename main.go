@@ -38,7 +38,10 @@ func main() {
 	//printNodeList(leetcode23([]*Node{generateNodeList([]int{1,4,5}), generateNodeList([]int{1,3,4}), generateNodeList([]int{2,6})}))
 	//printNodeList(leetcode25(generateNodeList([]int{1,2,3,4,5}), 3))
 
-	fmt.Println(leetcode6("LEETCODEISHIRING", 4))
+	//fmt.Println(leetcode6("LEETCODEISHIRING", 4))
+	//fmt.Println(leetcode69(9))
+	//fmt.Println(leetcode62(7,3))
+	fmt.Println(leetcode64([][]int{{1,3,1}, {1,5,1}, {4,2,1}}))
 }
 
 /*
