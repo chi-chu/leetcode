@@ -41,7 +41,9 @@ func main() {
 	//fmt.Println(leetcode6("LEETCODEISHIRING", 4))
 	//fmt.Println(leetcode69(9))
 	//fmt.Println(leetcode62(7,3))
-	fmt.Println(leetcode64([][]int{{1,3,1}, {1,5,1}, {4,2,1}}))
+	//fmt.Println(leetcode64([][]int{{1,3,1}, {1,5,1}, {4,2,1}}))
+	//fmt.Println(leetcode56([][]int{{1,9},{2,5},{8,10},{15,18}}))
+	fmt.Println(leetcode55([]int{0,2,3}))
 }
 
 /*

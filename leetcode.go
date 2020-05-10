@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -447,6 +448,63 @@ func getLimitPow(x float64, n int) (float64, int) {
 		exp *= 2
 	}
 	return x, exp
+}
+
+func leetcode55(nums []int) bool {
+	if len(nums) <= 1 {
+		return true
+	}
+	var ret bool
+	var maxIndex int
+	for i := 0; i < len(nums) - 1; i++ {
+		if i + nums[i] > maxIndex {
+			maxIndex = i + nums[i]
+			if maxIndex >= len(nums) - 1 {
+				return true
+			}
+		}
+		if i > maxIndex {
+			return ret
+		}
+		if i == maxIndex && nums[i] == 0 {
+			if i == len(nums) - 1 {
+				return true
+			}else{
+				return false
+			}
+		}
+	}
+	return ret
+}
+
+type sort56 [][]int
+func (o sort56) Len() int 				{ return len(o)}
+func (o sort56) Less(i, j int) bool 	{ return o[i][0] < o[j][0] }
+func (o sort56) Swap(i, j int)      	{ o[i], o[j] = o[j], o[i] }
+func leetcode56(intervals [][]int) [][]int {
+	if len(intervals) <=1 {
+		return intervals
+	}
+	sort.Sort(sort56(intervals))
+	ret := make([][]int, 0)
+	tmpRegion := make([]int, 2, 2)
+	for k, v := range intervals {
+		if k == 0 {
+			tmpRegion = v
+			continue
+		}
+		if v[0] > tmpRegion[1] {
+			ret = append(ret, tmpRegion)
+			tmpRegion = v
+			continue
+		}else{
+			if v[1] > tmpRegion[1] {
+				tmpRegion[1] = v[1]
+			}
+		}
+	}
+
+	return append(ret, tmpRegion)
 }
 
 //穷举超时。。。。
