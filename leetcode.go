@@ -450,6 +450,118 @@ func getLimitPow(x float64, n int) (float64, int) {
 	return x, exp
 }
 
+//hai mei nong hao
+func leetcode51(n int) [][]string {
+	var ret [][]string
+	empty := make([][]byte, n, n)
+	for i := 0; i < n; i++ {
+		empty[i] = make([]byte, n, n)
+		for j := 0; j < n; j++ {
+			empty[i][j] = '.'
+		}
+	}
+	solveNQueens(n, &ret, empty, 0)
+	//fmt.Println("chang is :", ret)
+	return ret
+}
+
+func solveNQueens(n int, ret *[][]string, tmp [][]byte, hasPut int) {
+	nextHasput := hasPut + 1
+	if hasPut == n {
+		tmpRet := make([]string, 0, n)
+		for _,v := range tmp {
+			tmpRet = append(tmpRet, string(v))
+		}
+		*ret = append(*ret, tmpRet)
+		return
+	}
+	var flag bool
+	for i := 0; i < n; i++ {
+		flag = false
+		tmp[hasPut][i] = 'Q'
+		//fmt.Println(tmp, "--- i: ",i,"   hasput:  ",hasPut)
+		//除去列
+		for j := 0; j < hasPut; j++ {
+			if tmp[j][i] == 'Q' {
+				tmp[hasPut][i] = '.'
+				flag = true
+				break
+			}
+		}
+		if flag {
+			continue
+		}
+		//除去斜
+		index := 1
+		for {
+			if i + index < n && hasPut + index < n {
+				if tmp[hasPut+index][i+index] == 'Q' {
+					tmp[hasPut][i] = '.'
+					flag = true
+					break
+				}
+			}else{
+				break
+			}
+			index++
+		}
+		if flag {
+			continue
+		}
+		index = 1
+		for {
+			if i - index >= 0 && hasPut - index >= 0 {
+				if tmp[hasPut-index][i-index] == 'Q' {
+					tmp[hasPut][i] = '.'
+					flag = true
+					break
+				}
+			}else{
+				break
+			}
+			index++
+		}
+		if flag {
+			continue
+		}
+		index = 1
+		for {
+			if i + index < n && hasPut - index >= 0 {
+				if tmp[hasPut-index][i+index] == 'Q' {
+					tmp[hasPut][i] = '.'
+					flag = true
+					break
+				}
+			}else{
+				break
+			}
+			index++
+		}
+		if flag {
+			continue
+		}
+		index = 1
+		for {
+			if i - index >= 0 && hasPut + index < n {
+				if tmp[hasPut+index][i-index] == 'Q' {
+					tmp[hasPut][i] = '.'
+					flag = true
+					break
+				}
+			}else{
+				break
+			}
+			index++
+		}
+		if flag {
+			continue
+		}
+		solveNQueens(n, ret, tmp, nextHasput)
+		//还原原位
+		tmp[hasPut][i] = '.'
+	}
+}
+
 func leetcode55(nums []int) bool {
 	if len(nums) <= 1 {
 		return true
@@ -588,6 +700,13 @@ func leetcode64(grid [][]int) int {
 	return mirrorGrid[0][0]
 }
 
+func leetcode65(s string) bool {
+	//var ret, point, e, plusMinus bool
+
+	//return ret
+	return false
+}
+
 func leetcode69(x int) int {
 	//最快应该用二分。
 	if x == 0 {
@@ -621,55 +740,4 @@ func checkBST(root *TreeNode, lower, upper int) bool {
 		return false
 	}
 	return checkBST(root.Left, lower, root.Val) && checkBST(root.Right, root.Val, upper)
-}
-
-func leetcode300(nums []int) int {
-	if len(nums) == 0 {
-		return 0
-	}
-	var ret int
-	var tmp []int
-	tmp = append(tmp, nums[0])
-	for _,v := range nums {
-		//fmt.Println(tmp,"---", v)
-		if v > tmp[ret] {
-			tmp = append(tmp, v)
-			ret++
-		}else{
-			var left, right int
-			right = ret
-			for left < right {
-				mid := (right - left) >>1 + left
-				if tmp[mid] < v {
-					//只有小于 才 +1
-					left = mid + 1
-				} else {
-					right = mid
-				}
-			}
-			tmp[left] = v
-		}
-	}
-	return ret + 1
-}
-
-func leetcode515(root *TreeNode) []int {
-	var ret []int
-	getLevelMax(&ret, root, 0)
-	return ret
-}
-
-func getLevelMax(ret *[]int, root *TreeNode, level int) {
-	if len(*ret) - 1 < level {
-		*ret = append(*ret, root.Val)
-	}
-	if root.Val > (*ret)[level] {
-		(*ret)[level] = root.Val
-	}
-	if root.Left != nil {
-		getLevelMax(ret, root.Left, level+1)
-	}
-	if root.Right != nil {
-		getLevelMax(ret, root.Right, level+1)
-	}
 }

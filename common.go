@@ -30,6 +30,7 @@ func generateNodeList(nums []int) *Node {
 	return ret
 }
 
+//null的点 值为 -1
 func generateNodeTree(nums []int) *TreeNode {
 	if len(nums) == 0 {
 		return nil
