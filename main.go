@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -46,7 +45,8 @@ func main() {
 	//fmt.Println(leetcode55([]int{0,2,3}))
 	//exp := generateNodeTree([]int{3,5,1,6,2,0,8,-1,-1,7,4})
 	//printTreeNode(leetcode236(exp, exp.Left, exp.Right))
-	fmt.Println(leetcode51(4))
+	//fmt.Println(leetcode51(4))
+	leetcode146()
 }
 
 /*

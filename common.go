@@ -7,11 +7,108 @@ type Node struct {
 	Next	*Node
 }
 
+func (n *Node) removeByNode(p *Node) {
+	if n == nil || p == nil {
+		return
+	}
+	if n == p {
+		*n = *n.Next
+		return
+	}
+	var pre *Node
+	tmp := n
+	for tmp.Next != p {
+		pre = tmp
+		tmp = tmp.Next
+	}
+	if pre != nil {
+		pre.Next = tmp.Next.Next
+	}
+}
+
+func (n *Node) removeByVal(v int) {
+	if n == nil {
+		return
+	}
+	var pre *Node
+	tmp := n
+	for tmp.Next != nil && tmp.Next.Value != v {
+		pre = tmp
+		tmp = tmp.Next
+	}
+	if pre != nil && tmp.Next != nil {
+		pre.Next = tmp.Next.Next
+	}
+}
+
+func (n *Node) addNodeHead(v int) *Node {
+	return &Node{v,n}
+}
+
+func (n *Node) addNodeTail(v int) {
+	if n == nil {
+		n = &Node{v,nil}
+		return
+	}
+	tmp := n
+	for tmp.Next != nil {
+		tmp = tmp.Next
+	}
+	tmp.Next = &Node{v,nil}
+}
+
+//打印单链表
+func (n *Node) printNodeList() {
+	var show []int
+	for n != nil {
+		show = append(show, n.Value)
+		n = n.Next
+	}
+	fmt.Println(show)
+}
+
+type DoubleLinkedNode struct {
+	Val		int
+	Pre		*DoubleLinkedNode
+	Next	*DoubleLinkedNode
+}
+
+func (d *DoubleLinkedNode) addHead(v int) {
+
+}
+
+func (d *DoubleLinkedNode) addTail(v int) {
+
+}
+
+func (d *DoubleLinkedNode) remove(v int, all bool) {
+
+}
+
 type TreeNode struct {
 	Val 	int
 	Left	*TreeNode
 	Right	*TreeNode
 }
+
+//TODO remove treeNode ~~~
+/*func (t *TreeNode) remove(v int, AVL bool) {
+	if AVL {
+		tmp := t
+		for tmp != nil && tmp.Val != v {
+			if tmp.Val < v {
+				tmp = tmp.Right
+			}else{
+				tmp = tmp.Left
+			}
+		}
+		if tmp != nil {
+
+		}
+	}else{
+
+	}
+}*/
 
 //生成单链表
 func generateNodeList(nums []int) *Node {
@@ -26,6 +123,17 @@ func generateNodeList(nums []int) *Node {
 		}
 		tmp.Next = &Node{v, nil}
 		tmp = tmp.Next
+	}
+	return ret
+}
+
+func generateDoubleLinkedList(nums []int) *DoubleLinkedNode {
+	if len(nums) == 0 {
+		return nil
+	}
+	ret := &DoubleLinkedNode{nums[0], nil, nil}
+	for k,v := range nums {
+		fmt.Println(k,v)
 	}
 	return ret
 }
@@ -57,17 +165,6 @@ func generateNodeTree(nums []int) *TreeNode {
 		}
 	}
 	return ret
-}
-
-
-//打印单链表
-func printNodeList(n *Node) {
-	var show []int
-	for n != nil {
-		show = append(show, n.Value)
-		n = n.Next
-	}
-	fmt.Println(show)
 }
 
 //链表反转
