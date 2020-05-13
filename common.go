@@ -2,12 +2,39 @@ package main
 
 import "fmt"
 
+//================================== 单链表
 type Node struct {
 	Value	int
 	Next	*Node
 }
 
-func (n *Node) removeByNode(p *Node) {
+//生成单链表
+func NewNodeList(nums []int) *Node {
+	if len(nums) == 0 {
+		return nil
+	}
+	ret := &Node{nums[0],nil}
+	tmp := ret
+	for k,v := range nums {
+		if k == 0 {
+			continue
+		}
+		tmp.Next = &Node{v, nil}
+		tmp = tmp.Next
+	}
+	return ret
+}
+
+func (n *Node) Len() int {
+	ret := 0
+	for n != nil {
+		n = n.Next
+		ret++
+	}
+	return ret
+}
+
+func (n *Node) RemoveByNode(p *Node) {
 	if n == nil || p == nil {
 		return
 	}
@@ -26,7 +53,7 @@ func (n *Node) removeByNode(p *Node) {
 	}
 }
 
-func (n *Node) removeByVal(v int) {
+func (n *Node) RemoveByVal(v int) {
 	if n == nil {
 		return
 	}
@@ -41,13 +68,13 @@ func (n *Node) removeByVal(v int) {
 	}
 }
 
-func (n *Node) addNodeHead(v int) *Node {
-	return &Node{v,n}
+func (n *Node) AddNodeHead(v int) {
+	*n = Node{v,n}
 }
 
-func (n *Node) addNodeTail(v int) {
+func (n *Node) AddNodeTail(v int) {
 	if n == nil {
-		n = &Node{v,nil}
+		*n = Node{v,nil}
 		return
 	}
 	tmp := n
@@ -57,8 +84,23 @@ func (n *Node) addNodeTail(v int) {
 	tmp.Next = &Node{v,nil}
 }
 
+//链表反转
+func reverseNode(root *Node) (*Node, int) {
+	var lens int
+	var next, pre *Node
+	pre = nil
+	for root != nil {
+		lens++
+		next = root.Next
+		root.Next = pre
+		pre = root
+		root = next
+	}
+	return pre, lens
+}
+
 //打印单链表
-func (n *Node) printNodeList() {
+func (n *Node) Print() {
 	var show []int
 	for n != nil {
 		show = append(show, n.Value)
@@ -67,24 +109,37 @@ func (n *Node) printNodeList() {
 	fmt.Println(show)
 }
 
+//====================================== 双向链表
 type DoubleLinkedNode struct {
 	Val		int
 	Pre		*DoubleLinkedNode
 	Next	*DoubleLinkedNode
 }
 
-func (d *DoubleLinkedNode) addHead(v int) {
+func NewDoubleLinkedList(nums []int) *DoubleLinkedNode {
+	if len(nums) == 0 {
+		return nil
+	}
+	ret := &DoubleLinkedNode{nums[0], nil, nil}
+	for k,v := range nums {
+		fmt.Println(k,v)
+	}
+	return ret
+}
+
+func (d *DoubleLinkedNode) AddHead(v int) {
 
 }
 
-func (d *DoubleLinkedNode) addTail(v int) {
+func (d *DoubleLinkedNode) AddTail(v int) {
 
 }
 
-func (d *DoubleLinkedNode) remove(v int, all bool) {
+func (d *DoubleLinkedNode) Remove(v int, all bool) {
 
 }
 
+//====================================== 树
 type TreeNode struct {
 	Val 	int
 	Left	*TreeNode
@@ -110,36 +165,8 @@ type TreeNode struct {
 	}
 }*/
 
-//生成单链表
-func generateNodeList(nums []int) *Node {
-	if len(nums) == 0 {
-		return nil
-	}
-	ret := &Node{nums[0],nil}
-	tmp := ret
-	for k,v := range nums {
-		if k == 0 {
-			continue
-		}
-		tmp.Next = &Node{v, nil}
-		tmp = tmp.Next
-	}
-	return ret
-}
-
-func generateDoubleLinkedList(nums []int) *DoubleLinkedNode {
-	if len(nums) == 0 {
-		return nil
-	}
-	ret := &DoubleLinkedNode{nums[0], nil, nil}
-	for k,v := range nums {
-		fmt.Println(k,v)
-	}
-	return ret
-}
-
 //null的点 值为 -1
-func generateNodeTree(nums []int) *TreeNode {
+func NewNodeTree(nums []int) *TreeNode {
 	if len(nums) == 0 {
 		return nil
 	}
@@ -167,28 +194,29 @@ func generateNodeTree(nums []int) *TreeNode {
 	return ret
 }
 
-//链表反转
-func reverseNode(root *Node) (*Node, int) {
-	var lens int
-	var next, pre *Node
-	pre = nil
-	for root != nil {
-		lens++
-		next = root.Next
-		root.Next = pre
-		pre = root
-		root = next
+//二叉树反转
+func (t *TreeNode) Reverse() {
+	if t.Right == nil && t.Left == nil {
+		return
 	}
-	return pre, lens
+	tmp := t.Left
+	t.Left = t.Right
+	t.Right = tmp
+	if t.Left != nil {
+		t.Left.Reverse()
+	}
+	if t.Right != nil {
+		t.Right.Reverse()
+	}
 }
 
-func printTreeNode(n *TreeNode) {
-	if n == nil || n.Val == -1 {
+func (t *TreeNode) PrintTreeNode() {
+	if t == nil || t.Val == -1 {
 		fmt.Println("TreeNode is nil ")
 		return
 	}
 	var view [][]int
-	parseTree(&view, n, 0)
+	parseTree(&view, t, 0)
 	for _,v := range view {
 		fmt.Println(v)
 	}
@@ -213,12 +241,13 @@ func parseTree(view *[][]int, root *TreeNode, level int) {
 	}
 }
 
+//====================================== 其他
 //快速排序
-func quickSort(n []int, left, right int) {
+func QuickSort(n []int, left, right int) {
 	if left < right {
 		index := getIndex(n, left, right)
-		quickSort(n, left, index-1)
-		quickSort(n, index+1, right)
+		QuickSort(n, left, index-1)
+		QuickSort(n, index+1, right)
 	}
 }
 
@@ -239,19 +268,3 @@ func getIndex(n []int, left, right int) int {
 	return left
 }
 //快速排序end
-
-//二叉树反转
-func reverseTreeNode(root *TreeNode) {
-	if root.Right == nil && root.Left == nil {
-		return
-	}
-	tmp := root.Left
-	root.Left = root.Right
-	root.Right = tmp
-	if root.Left != nil {
-		reverseTreeNode(root.Left)
-	}
-	if root.Right != nil {
-		reverseTreeNode(root.Right)
-	}
-}

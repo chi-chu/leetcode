@@ -29,9 +29,9 @@ func leetcode146() {
 	l.Put(2, 1)
 	fmt.Println(l.Get(2))
 	l.Put(3,2)
-	l.keys.printNodeList()
+	l.keys.Print()
 	fmt.Println(l.Get(2))
-	l.keys.printNodeList()
+	l.keys.Print()
 	fmt.Println(l.Get(3))
 }
 

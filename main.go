@@ -214,11 +214,11 @@ func searchBorder(nums []int, target int, findLeft bool) int {
 }
 
 //猴子选大王（约瑟夫环）
-func MonekeyKing(m,n int) int {
+func MonekeyKing(m, n int) int {
 	var ret int
 	var list []int
-	for i:=0;i<m;i++ {
-		list = append(list, 1)
+	for i:=0; i<m; i++ {
+		list = append(list, i+1)
 	}
 
 	return ret
