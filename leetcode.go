@@ -99,7 +99,7 @@ func checkstring(s string, p string) bool {
 
 func threeSum(nums []int) [][]int {
 	var ret [][]int
-	quickSort(nums, 0, len(nums) -1)
+	QuickSort(nums, 0, len(nums) -1)
 	fmt.Println(nums)
 	return ret
 }

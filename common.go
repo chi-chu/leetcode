@@ -85,18 +85,19 @@ func (n *Node) AddNodeTail(v int) {
 }
 
 //链表反转
-func reverseNode(root *Node) (*Node, int) {
-	var lens int
+func (n *Node) Reverse() {
 	var next, pre *Node
+	root := n
 	pre = nil
 	for root != nil {
-		lens++
 		next = root.Next
 		root.Next = pre
 		pre = root
 		root = next
 	}
-	return pre, lens
+	if pre != nil {
+		*n = *pre
+	}
 }
 
 //打印单链表
@@ -116,27 +117,76 @@ type DoubleLinkedNode struct {
 	Next	*DoubleLinkedNode
 }
 
-func NewDoubleLinkedList(nums []int) *DoubleLinkedNode {
-	if len(nums) == 0 {
-		return nil
+func NewDoubleLinkedList(nums []int) (*DoubleLinkedNode, *DoubleLinkedNode) {
+	lens := len(nums)
+	if lens == 0 {
+		return nil, nil
 	}
 	ret := &DoubleLinkedNode{nums[0], nil, nil}
+	if lens == 1 {
+		return ret, ret
+	}
+	var pre, tmp *DoubleLinkedNode
+	tmp = ret
+	pre = nil
 	for k,v := range nums {
-		fmt.Println(k,v)
+		if k == 0 {
+			continue
+		}else{
+			tmp.Pre = pre
+			tmp.Next = &DoubleLinkedNode{v, nil, nil}
+			pre = tmp
+			tmp = tmp.Next
+		}
+	}
+	return ret, pre
+}
+
+func (d *DoubleLinkedNode) Len() int {
+	var ret int
+	for d != nil {
+		d = d.Next
+		ret ++
 	}
 	return ret
 }
 
 func (d *DoubleLinkedNode) AddHead(v int) {
-
+	*d = DoubleLinkedNode{v, nil, d}
 }
 
 func (d *DoubleLinkedNode) AddTail(v int) {
-
+	if d == nil {
+		*d = DoubleLinkedNode{v, nil, nil}
+		return
+	}
+	tmp := d
+	for tmp.Next != nil {
+		tmp = tmp.Next
+	}
+	tmp.Next = &DoubleLinkedNode{v, tmp, nil}
 }
 
 func (d *DoubleLinkedNode) Remove(v int, all bool) {
-
+	tmp := d
+	for {
+		if tmp == nil {
+			return
+		}
+		if tmp.Val == v {
+			tmp.Pre.Next = tmp.Next
+			if tmp.Next != nil {
+				tmp.Next.Pre = tmp.Pre
+			}
+			if all {
+				tmp = tmp.Next
+			}else{
+				return
+			}
+		}else{
+			tmp = tmp.Next
+		}
+	}
 }
 
 //====================================== 树

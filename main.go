@@ -1,52 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"math"
 )
 
 func main() {
-	//fmt.Println(parseInt("123"))
-	//fmt.Println(getRomaNum(27))
-	//fmt.Println(checkstring("aab", "c*a*b"))
-	//fmt.Println(threeSum([]int{9,8,7,6,5,4,3,2,1}))
-	//fmt.Println(generateParenthesis(3))
-	//fmt.Println(zstring("LEETCODEISHIRING",4))
-	//fmt.Println(longestValidParentheses("()(()"))
-	//fmt.Println(combinationSum([]int{2,3,5}, 8))
-	//fmt.Println(leetcode43("9","99"))
-	//fmt.Println(leetcode45([]int{2,3,1,1,4}))
-	//fmt.Println(leetcode46([]int{1,2,3}))
-	//fmt.Println(leetcode42([]int{0,1,0,2,1,0,1,3,2,1,2,1}))
-	//fmt.Println(leetcode300([]int{4,10,4,3,8,9}))
-	//printTreeNode(generateNodeTree([]int{1,3,2,5,3,-1,9}))
-	//fmt.Println(searchTargetCount([]int{1,2,2,2,3,3,5,8,8}, 3))
-	//fmt.Println(leetcode49([]string{"eat", "tea", "tan", "ate", "nat", "bat"}))
-	//fmt.Println(leetcode50(2.00000, 10))
-	//n := [][]int{{1,2,3,4}, {5,6,7,8}, {9,10,11,12},{13,14,15,16}}
-	/*n :=[][]int{{1,2,3},{4,5,6},{7,8,9}}
-	for _,v := range n {
-		fmt.Println(v)
-	}
-	fmt.Println("-------")
-	leetcode48(n)
-	for _,v := range n {
-		fmt.Println(v)
-	}*/
-	//fmt.Println(leetcode98(generateNodeTree([]int{0.-1})))
-	//fmt.Println(leetcode46([]int{1,2,3}))
-	//printNodeList(leetcode23([]*Node{generateNodeList([]int{1,4,5}), generateNodeList([]int{1,3,4}), generateNodeList([]int{2,6})}))
-	//printNodeList(leetcode25(generateNodeList([]int{1,2,3,4,5}), 3))
-
-	//fmt.Println(leetcode6("LEETCODEISHIRING", 4))
-	//fmt.Println(leetcode69(9))
-	//fmt.Println(leetcode62(7,3))
-	//fmt.Println(leetcode64([][]int{{1,3,1}, {1,5,1}, {4,2,1}}))
-	//fmt.Println(leetcode56([][]int{{1,9},{2,5},{8,10},{15,18}}))
-	//fmt.Println(leetcode55([]int{0,2,3}))
-	//exp := generateNodeTree([]int{3,5,1,6,2,0,8,-1,-1,7,4})
-	//printTreeNode(leetcode236(exp, exp.Left, exp.Right))
-	//fmt.Println(leetcode51(4))
-	leetcode146()
+	//fmt.Println(leetcode102(NewNodeTree([]int{1,7,9,-1,-1,1,7,-1,-1,-1,-1,-1,8,9})))
+	fmt.Println(leetcode199(NewNodeTree([]int{1,2,3,-1,5,-1,4})))
 }
 
 /*
@@ -125,8 +86,8 @@ func checkPoint(imap [][]int, x,y,lenx,leny int) {
 
 //十进制整型链表相加
 func AddTwoNodeList(nodeOne, nodeTwo *Node) *Node {
-	nodeOne, _ = reverseNode(nodeOne)
-	nodeTwo, _ = reverseNode(nodeTwo)
+	nodeOne.Reverse()
+	nodeTwo.Reverse()
 	var retNode, tmpNodeOne, tmpNodeTwo, finalNode *Node
 	var flag bool
 	tmpNodeOne = nodeOne

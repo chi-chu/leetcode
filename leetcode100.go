@@ -1,6 +1,63 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
+
+func leetcode102(root *TreeNode) [][]int {
+	if root == nil {
+		return nil
+	}
+	var view [][]int
+	echoTree(&view, root, 0)
+	return view
+}
+
+func echoTree(view *[][]int, root *TreeNode, level int) {
+	if len(*view) - 1 < level {
+		*view = append(*view, []int{})
+	}
+	(*view)[level] = append((*view)[level], root.Val)
+	if root.Left != nil {
+		echoTree(view, root.Left, level+1)
+	}
+	if root.Left == nil && root.Right != nil {
+		if len(*view) - 2 < level {
+			*view = append(*view, []int{})
+		}
+	}
+	if root.Right != nil {
+		echoTree(view, root.Right, level+1)
+	}
+}
+
+func leetcode121(prices []int) int {
+	var ret, preMin int
+	preMin = math.MaxInt64
+	for _,v := range prices {
+		if v < preMin {
+			preMin = v
+		}else{
+			if v - preMin > ret {
+				ret = v - preMin
+			}
+		}
+	}
+	return ret
+}
+
+func leetcode136(nums []int) int {
+	//交换律：a ^ b ^ c <=> a ^ c ^ b
+	//任何数于0异或为任何数 0 ^ n => n
+	//相同的数异或为0: n ^ n => 0
+	var tmp int
+	for _,v := range nums {
+		tmp ^= v
+	}
+	return tmp
+}
+
 
 type LRUCache struct {
 	cap		int
@@ -110,5 +167,68 @@ func (l *LRUCache) Put(key int, value int) {
 			}
 			tmp.Next = nil
 		}
+	}
+}
+
+//动态规划 典型 dp[i] = max(dp[i-1], num[i]+ dp[i-2])
+func leetcode198(nums []int) int {
+	var ret int
+	lens := len(nums)
+	if lens == 0{
+		return 0
+	}else if lens == 1 {
+		return nums[0]
+	}else if lens == 2 {
+		if nums[0] > nums[1] {
+			return nums[0]
+		}else{
+			return nums[1]
+		}
+	}else{
+		dp := make([]int, lens, lens)
+		dp[0] = nums[0]
+		if nums[0] > nums[1] {
+			dp[1] = nums[0]
+			ret = nums[0]
+		}else{
+			dp[1] = nums[1]
+			ret = nums[1]
+		}
+		for i:=2; i<lens; i++ {
+			if dp[i-2] + nums[i] > dp[i-1] {
+				dp[i] = nums[i] + dp[i-2]
+				ret = dp[i]
+			}else{
+				dp[i] = dp[i-1]
+			}
+		}
+	}
+	return ret
+}
+
+func leetcode199(root *TreeNode) []int {
+	var ret, indexCompare []int
+	if root == nil {
+		return nil
+	}
+	rightSideView(root, 1, 1, &ret, &indexCompare)
+	return ret
+}
+
+func rightSideView(root *TreeNode, index, level int, ret, indexCompare *[]int) {
+	if len(*indexCompare) < level {
+		*indexCompare = append(*indexCompare, index)
+		*ret = append(*ret, root.Val)
+	}else{
+		if index > (*indexCompare)[level-1] {
+			(*indexCompare)[level-1] = index
+			(*ret)[level-1] = root.Val
+		}
+	}
+	if root.Left != nil {
+		rightSideView(root.Left, index*2, level+1, ret, indexCompare)
+	}
+	if root.Right != nil {
+		rightSideView(root.Right, index*2+1, level+1, ret, indexCompare)
 	}
 }
