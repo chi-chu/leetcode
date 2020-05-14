@@ -7,7 +7,11 @@ import (
 
 func main() {
 	//fmt.Println(leetcode102(NewNodeTree([]int{1,7,9,-1,-1,1,7,-1,-1,-1,-1,-1,8,9})))
-	fmt.Println(leetcode199(NewNodeTree([]int{1,2,3,-1,5,-1,4})))
+	//fmt.Println(leetcode199(NewNodeTree([]int{1,2,3,-1,5,-1,4})))
+	//fmt.Println(leetcode200([][]byte{{'1','1','0','0','0'}, {'1','1','0','0','0'},{'0','0','1','0','0'},{'0','0','0','1','1'}}))
+	n := [][]int{{0,1,0}, {0,0,1},{1,1,1}, {0,0,0}}
+	leetcode289(n)
+	fmt.Println(n)
 }
 
 /*
@@ -60,28 +64,6 @@ func parseInt(s string) int32 {
 		}
 	}
 	return ret*flag
-}
-
-
-func checkIsland(imap [][]int) int {
-	var ret int
-	leny := len(imap)
-	if leny<0 {
-		return 0
-	}
-	lenx := len(imap[0])
-	for i:=0;i<lenx;i++ {
-		for j:=0;j<leny;j++ {
-			if imap[i][j] == 1 {
-				//checkPoint()
-			}
-		}
-	}
-	return ret
-}
-
-func checkPoint(imap [][]int, x,y,lenx,leny int) {
-	//递归找岛屿数量
 }
 
 //十进制整型链表相加

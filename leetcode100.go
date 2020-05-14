@@ -170,6 +170,22 @@ func (l *LRUCache) Put(key int, value int) {
 	}
 }
 
+func leetcode169(nums []int) int {
+	var candidate int
+	var count int
+	for _,v := range nums {
+		if count == 0 {
+			candidate = v
+		}
+		if v == candidate {
+			count++
+		}else{
+			count--
+		}
+	}
+	return candidate
+}
+
 //动态规划 典型 dp[i] = max(dp[i-1], num[i]+ dp[i-2])
 func leetcode198(nums []int) int {
 	var ret int
