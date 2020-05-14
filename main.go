@@ -9,9 +9,10 @@ func main() {
 	//fmt.Println(leetcode102(NewNodeTree([]int{1,7,9,-1,-1,1,7,-1,-1,-1,-1,-1,8,9})))
 	//fmt.Println(leetcode199(NewNodeTree([]int{1,2,3,-1,5,-1,4})))
 	//fmt.Println(leetcode200([][]byte{{'1','1','0','0','0'}, {'1','1','0','0','0'},{'0','0','1','0','0'},{'0','0','0','1','1'}}))
-	n := [][]int{{0,1,0}, {0,0,1},{1,1,1}, {0,0,0}}
-	leetcode289(n)
-	fmt.Println(n)
+	//n := [][]int{{0,1,0}, {0,0,1},{1,1,1}, {0,0,0}}
+	//leetcode289(n)
+	//fmt.Println(n)
+	fmt.Println(leetcode322([]int{186,419,83,408},6249))
 }
 
 /*

@@ -220,6 +220,7 @@ func leetcode289(board [][]int) {
 			}
 		}
 	}
+	//不使用额外空间 就要再遍历一次
 	for j:=0; j<leny; j++ {
 		for i := 0; i < lenx; i++ {
 			if board[j][i] == -1 {
