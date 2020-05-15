@@ -36,6 +36,7 @@ func leetcode300(nums []int) int {
 func leetcode322(coins []int, amount int) int {
 	dp := make([]int, amount + 1, amount+1)
 	for k,_ := range dp {
+		//max +1  = -max
 		dp[k] = math.MaxInt64-1
 	}
 	dp[0] = 0

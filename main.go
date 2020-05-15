@@ -12,7 +12,8 @@ func main() {
 	//n := [][]int{{0,1,0}, {0,0,1},{1,1,1}, {0,0,0}}
 	//leetcode289(n)
 	//fmt.Println(n)
-	fmt.Println(leetcode322([]int{186,419,83,408},6249))
+	//fmt.Println(leetcode322([]int{186,419,83,408},6249))
+	fmt.Println(leetcode72("horse","ros"))
 }
 
 /*

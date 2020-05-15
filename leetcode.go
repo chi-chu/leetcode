@@ -727,6 +727,45 @@ func leetcode69(x int) int {
 	return ret - 1
 }
 
+//两个字符的编辑距离
+func leetcode72(word1, word2 string) int {
+	len1 := len(word1)
+	len2 := len(word2)
+	dp := make([][]int, len1+1, len1+1)
+	var min int
+	for k,_ := range dp {
+		if k == 0 {
+			for x:=0; x<=len2; x++ {
+				dp[k] = append(dp[k], x)
+			}
+		}else{
+			dp[k] = make([]int, len2+1,len2+1)
+			dp[k][0] = k
+		}
+	}
+	for i:=1; i<len1+1; i++ {
+		for j:=1; j<len2+1; j++ {
+			if word1[i-1] == word2[j-1] {
+				dp[i][j] = dp[i-1][j-1]
+			}else{
+				min = math.MaxInt64
+				if j-1>=0 && dp[i][j-1] < min {
+					min = dp[i][j-1]
+				}
+				if i-1>=0 && dp[i-1][j] < min {
+					min = dp[i-1][j]
+				}
+				if i-1>=0 && j-1>=0 && dp[i-1][j-1] < min {
+					min = dp[i-1][j-1]
+				}
+				dp[i][j] = min + 1
+			}
+		}
+	}
+	fmt.Print(dp)
+	return dp[len1][len2]
+}
+
 //上一波上下边界要在 搜索二叉树范围内
 func leetcode98(root *TreeNode) bool {
 	return checkBST(root, math.MinInt64, math.MaxInt64)
