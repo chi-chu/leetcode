@@ -201,8 +201,7 @@ func leetcode25(head *Node, k int) *Node{
 	return ret
 }
 
-//leetcode32
-func longestValidParentheses(s string) int {
+func leetcode32(s string) int {
 	var tmplen, maxlen, k int
 	var simg string
 	for _,v := range s {
@@ -228,7 +227,7 @@ func longestValidParentheses(s string) int {
 				tmplen = 0
 			}
 		}
-		fmt.Println(tmplen, "---", simg, "---", k)
+		//fmt.Println(tmplen, "---", simg, "---", k)
 	}
 	if tmplen > maxlen {
 		maxlen = tmplen
@@ -261,11 +260,55 @@ func getTarget(k []int, index int, target int, tmpsum int, tmpList []int, ret *[
 }
 
 func leetcode41(nums []int) int {
-	var ret int
+	l := len(nums)
+	contains := 0
+	for i := 0; i < l; i++ { //检查是否包含1
+		if nums[i] == 1 {
+			contains++
+			break
+		}
+	}
 
-	return ret
+	if contains == 0 { //不包含1即答案
+		return 1
+	}
+	if l == 1 { //包含且长度为1，  2即答案
+		return 2
+	}
+
+	for i := 0; i < l; i++ { //把所有大数,负数，全部转换为1，因为值必定 res <= l+1
+		if nums[i] <= 0 || l < nums[i] {
+			nums[i] = 1
+		}
+	}
+
+	for i := 0; i < l; i++ { //以符号的正负 当作hash表
+		index := AbsInt(nums[i]) //获取需要改变的索引
+		if index == l {
+			nums[0] = - AbsInt(nums[0])
+		} else {
+			nums[index] = - AbsInt(nums[index])
+		}
+	}
+
+	for i := 1; i < l; i++ { //不存在 即答案
+		if nums[i] > 0 {
+			return i
+		}
+	}
+
+	if nums[0] > 0 { // 不存在 即答案
+		return l
+	}
+	return l + 1 //都存在，后序l+1为答案
 }
 
+func AbsInt(n int) int {
+	if n > 0 {
+		return n
+	}
+	return -n
+}
 func leetcode42(nums []int) int {
 	var ret, maxL, lens, index int
 	lens = len(nums)
@@ -762,7 +805,6 @@ func leetcode72(word1, word2 string) int {
 			}
 		}
 	}
-	fmt.Print(dp)
 	return dp[len1][len2]
 }
 

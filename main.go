@@ -13,7 +13,11 @@ func main() {
 	//leetcode289(n)
 	//fmt.Println(n)
 	//fmt.Println(leetcode322([]int{186,419,83,408},6249))
-	fmt.Println(leetcode72("horse","ros"))
+	//fmt.Println(leetcode72("horse","ros"))
+	//fmt.Println(leetcode560([]int{1,1,1},2))
+	//fmt.Println(MonekeyKing(10, 3))
+	//leetcode25(NewNodeList([]int{1,2,3,4,5,6,7,8,9}), 4).Print()
+	fmt.Println(leetcode41([]int{3,4,-1,1}))
 }
 
 /*
@@ -160,11 +164,31 @@ func searchBorder(nums []int, target int, findLeft bool) int {
 
 //猴子选大王（约瑟夫环）
 func MonekeyKing(m, n int) int {
-	var ret int
+	if m < 1 {
+		return -1
+	}
+	var pre, index, count int
 	var list []int
 	for i:=0; i<m; i++ {
 		list = append(list, i+1)
 	}
-
-	return ret
+	list[m-1] = 0
+	pre = m - 1
+	for m != 1{
+		if list[index] != -1 {
+			count++
+			if count == n {
+				list[pre] = list[index]
+				list[index] = -1
+				index = list[pre]
+				count = 0
+				m--
+			} else {
+				pre = index
+				index = list[index]
+			}
+		}
+		fmt.Println(list)
+	}
+	return index+1
 }

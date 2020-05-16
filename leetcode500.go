@@ -20,3 +20,21 @@ func getLevelMax(ret *[]int, root *TreeNode, level int) {
 		getLevelMax(ret, root.Right, level+1)
 	}
 }
+
+func leetcode560(nums []int, k int) int {
+	var ret,tmp int
+	sum := make(map[int]int)
+	sum[0] = 1
+	for _,v := range nums {
+		tmp += v
+		if _,ok := sum[tmp]; ok {
+			sum[tmp]++
+		} else {
+			sum[tmp] = 1
+		}
+		if count, ok := sum[k-tmp]; ok {
+			ret += count
+		}
+	}
+	return ret
+}
