@@ -165,37 +165,58 @@ func leetcode23(lists []*Node) *Node {
 	return ret
 }
 
+//卧槽 巨tm难。。。 时间空间复杂度最低。。
 func leetcode25(head *Node, k int) *Node{
-	var ret, pre, next, current, listC *Node
+	var ret, pre, next, current, listHeadone, listHeadtwo, listTail *Node
 	var num int
 	var flag bool
 	pre = nil
 	current = head
-	for current.Next != nil {
-		if num == 0 {
-			listC = current
+	for current != nil {
+		num++
+		if num == 1 {
+			listHeadone = listHeadtwo
+			listHeadtwo = current
 		}
 		next = current.Next
 		current.Next = pre
-		pre = current
-		current = next
-		num++
 		if num == k {
 			if !flag {
-				ret = pre
+				ret = current
 				flag = true
+			}else{
+				listTail = current
+				if listHeadone != nil {
+					listHeadone.Next = listTail
+				}
 			}
 			num = 0
-			listC.Next = next
+			pre = nil
+		}else{
+			pre = current
 		}
+		current = next
 	}
-	if num != k {
+	if num != 0 {
+		//listHeadone.Next = pre
+		tmp := pre
 		//反转回去最后不足k个节点
-		for listC.Next != nil {
-
+		var tmpPre, tmpNext *Node
+		for tmp != nil {
+			tmpNext = tmp.Next
+			tmp.Next = tmpPre
+			tmpPre = tmp
+			tmp = tmpNext
+		}
+		if listHeadone != nil {
+			listHeadone.Next = tmpPre
+		}
+	}else{
+		if listHeadone != nil {
+			listHeadone.Next = listTail
 		}
 	}
-	if ret == nil {
+	if !flag {
 		return head
 	}
 	return ret
