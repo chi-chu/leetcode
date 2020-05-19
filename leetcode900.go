@@ -2,6 +2,11 @@ package main
 
 import "fmt"
 
+func leetcode912(nums []int) []int {
+	QuickSort(nums, 0, len(nums)-1)
+	return nums
+}
+
 func leetcode945(nums []int) int {
 	var ret int
 	if nums ==  nil {

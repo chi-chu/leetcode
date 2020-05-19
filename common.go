@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //================================== 单链表
 type Node struct {
@@ -293,37 +295,26 @@ func parseTree(view *[][]int, root *TreeNode, level int) {
 
 //====================================== 其他
 //快速排序
-func QuickSort(n []int, left, right int) {
-	if left < right {
-		index := getIndex(n, left, right)
-		if index == left {
-			return
-		}
-		QuickSort(n, left, index-1)
-		QuickSort(n, index+1, right)
+func QuickSort(nums []int, l, r int) {
+	if l >= r {
+		return
 	}
-}
-
-func getIndex(n []int, left, right int) int {
-	start := left
-	left++
-	for {
-		for left < right && n[left] < n[start] {
-			left++
+	i, j := l, r
+	//nums[i], nums[(i+j)>>1] = nums[(i+j)>>1], nums[i]
+	pivot := nums[i]
+	for i < j {
+		for i < j && pivot <= nums[j] {
+			j--
 		}
-		for left < right && n[right] > n[start] {
-			right--
+		nums[i] = nums[j]
+		for i < j && nums[i] <= pivot {
+			i++
 		}
-		//fmt.Println(n,left,right)
-		if left >= right {
-			break
-		}
-		n[left], n[right] = n[right], n[left]
+		nums[j] = nums[i]
 	}
-	if n[left] < n[start] {
-		n[left], n[start] = n[start], n[left]
-	}
-	return left
+	nums[i] = pivot
+	QuickSort(nums, l, i-1)
+	QuickSort(nums, i+1, r)
 }
 //快速排序end
 

@@ -19,7 +19,7 @@ func main() {
 	//leetcode25(NewNodeList([]int{1,2}), 1).Print()
 	//fmt.Println(leetcode41([]int{3,4,-1,1}))
 	//n := []int{1,2,1,2,3,7}
-	n := []int{1,2,2}
+	n := []int{-4,0,7,4,9,-5,-1,0,-7,-1}
 	fmt.Println(leetcode945(n))
 }
 
