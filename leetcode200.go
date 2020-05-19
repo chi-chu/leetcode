@@ -162,6 +162,26 @@ func lowestCommonAncestor(root, p, q *TreeNode, ret **TreeNode) (bool, bool){
 	return left, right
 }
 
+func leetcode283(nums []int) {
+	lastIndex := -1
+	for k,v := range nums {
+		if v == 0 {
+			if lastIndex < 0 {
+				lastIndex = k
+			}
+		}else{
+			if lastIndex >= 0 {
+				nums[k], nums[lastIndex] = nums[lastIndex], nums[k]
+				if nums[lastIndex+1] == 0 {
+					lastIndex++
+				}else{
+					lastIndex = k
+				}
+			}
+		}
+	}
+}
+
 func leetcode289(board [][]int) {
 	var count int
 	var health bool

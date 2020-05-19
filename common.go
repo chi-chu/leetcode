@@ -296,25 +296,47 @@ func parseTree(view *[][]int, root *TreeNode, level int) {
 func QuickSort(n []int, left, right int) {
 	if left < right {
 		index := getIndex(n, left, right)
+		if index == left {
+			return
+		}
 		QuickSort(n, left, index-1)
 		QuickSort(n, index+1, right)
 	}
 }
 
 func getIndex(n []int, left, right int) int {
-	tmp := n[left]
-	for left < right {
-		for n[left] < tmp {
-			left += 1
+	start := left
+	left++
+	for {
+		for left < right && n[left] < n[start] {
+			left++
 		}
-		for n[right] > tmp {
-			right -= 1
+		for left < right && n[right] > n[start] {
+			right--
 		}
-		swtmp := n[left]
-		n[left] = n[right]
-		n[right] = swtmp
+		//fmt.Println(n,left,right)
+		if left >= right {
+			break
+		}
+		n[left], n[right] = n[right], n[left]
 	}
-	n[left] = tmp
+	if n[left] < n[start] {
+		n[left], n[start] = n[start], n[left]
+	}
 	return left
 }
 //快速排序end
+
+func Min(i,j int) int {
+	if i < j {
+		return i
+	}
+	return j
+}
+
+func Max(i,j int) int {
+	if i < j {
+		return j
+	}
+	return i
+}

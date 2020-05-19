@@ -16,8 +16,11 @@ func main() {
 	//fmt.Println(leetcode72("horse","ros"))
 	//fmt.Println(leetcode560([]int{1,1,1},2))
 	//fmt.Println(MonekeyKing(10, 3))
-	leetcode25(NewNodeList([]int{1,2}), 1).Print()
+	//leetcode25(NewNodeList([]int{1,2}), 1).Print()
 	//fmt.Println(leetcode41([]int{3,4,-1,1}))
+	//n := []int{1,2,1,2,3,7}
+	n := []int{1,2,2}
+	fmt.Println(leetcode945(n))
 }
 
 /*
