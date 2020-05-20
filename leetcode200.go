@@ -69,6 +69,33 @@ func leetcode206(head *Node) *Node {
 	return pre
 }
 
+func leetcode215(nums []int, k int) int {
+	lens := len(nums) - 1
+	for i := lens >> 1; i >= 0; i-- {
+		down(nums, i, lens)
+	}
+	for j := lens; j >= 1; j-- {
+		nums[0], nums[j] = nums[j], nums[0]
+		lens--
+		down(nums, 0, lens)
+	}
+	return nums[k-1]
+}
+
+func down(nums []int, i, lens int) {
+	min := i
+	if i<<1+1 <= lens && nums[i<<1+1] < nums[min] { //相等最后一个元素
+		min = i<<1 + 1
+	}
+	if i<<1+2 <= lens && nums[i<<1+2] < nums[min] {
+		min = i<<1 + 2
+	}
+	if i != min {
+		nums[i], nums[min] = nums[min], nums[i]
+		down(nums, min, lens)
+	}
+}
+
 func leetcode225() {
 	o := StackConstructor()
 	o.Push(1)
