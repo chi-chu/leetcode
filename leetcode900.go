@@ -46,18 +46,75 @@ func leetcode914(deck []int) bool {
 }
 func leetcode945(nums []int) int {
 	var ret int
-	if nums ==  nil {
+	lens := len(nums)
+	if lens < 1 {
 		return 0
 	}
-	lens := len(nums)
 	QuickSort(nums, 0, lens-1)
 	fmt.Println(nums)
+	val := nums[0]
+	index := 0
 	for k,v := range nums {
-		if nums[0] + k - v >= 0 {
-			ret += nums[0] + k - v
+		//fmt.Println((val - v) - (k - index))
+		if val + (k-index) - v >= 0 {
+			ret += val + (k-index) - v
 		} else{
-			break
+			val = v
+			index = k
 		}
+		//fmt.Println(k, ret)
 	}
 	return ret
+}
+
+func leetcode994(grid [][]int) int {
+	var time, good int
+	var location [][2]int
+	for j,v := range grid {
+		for i,vv := range v {
+			if vv == 1 {
+				good++
+			}else if vv == 2 {
+				location = append(location, [2]int{i,j})
+			}
+		}
+	}
+	//fmt.Println(location)
+	for {
+		if good == 0 {
+			return time
+		}
+		if len(location) == 0 {
+			break
+		}
+		time++
+		tmp := make([][2]int,0)
+		for _,v := range location {
+			if v[0]+1 < len(grid[0]) && grid[v[1]][v[0]+1] == 1 {
+				grid[v[1]][v[0]+1] = 2
+				good--
+				tmp = append(tmp, [2]int{v[0]+1, v[1]})
+			}
+			if v[0]-1 >= 0 && grid[v[1]][v[0]-1] == 1 {
+				grid[v[1]][v[0]-1] = 2
+				good--
+				tmp = append(tmp, [2]int{v[0]-1, v[1]})
+			}
+			if v[1]+1 < len(grid) && grid[v[1]+1][v[0]] == 1 {
+				grid[v[1]+1][v[0]] = 2
+				good--
+				tmp = append(tmp, [2]int{v[0], v[1]+1})
+			}
+			if v[1]-1 >= 0 && grid[v[1]-1][v[0]] == 1 {
+				grid[v[1]-1][v[0]] = 2
+				good--
+				tmp = append(tmp, [2]int{v[0], v[1]-1})
+			}
+		}
+		location = tmp
+	}
+	if good > 0 {
+		return -1
+	}
+	return time-1
 }
