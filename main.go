@@ -23,7 +23,8 @@ func main() {
 	//fmt.Println(leetcode1103(10,3))
 	//fmt.Println(leetcode945([]int{2,2,2,1}))
 	//fmt.Println(leetcode994([][]int{{0}}))
-	fmt.Println(leetcode1013([]int{29,31,27,-10,-67,22,15,-1,-16,-29,59,-18,48}))
+	//fmt.Println(leetcode1013([]int{29,31,27,-10,-67,22,15,-1,-16,-29,59,-18,48}))
+	fmt.Println(leetcode5("babad"))
 }
 
 /*
