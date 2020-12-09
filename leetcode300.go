@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"math"
+	"strings"
+)
 
 func leetcode300(nums []int) int {
 	if len(nums) == 0 {
@@ -101,4 +104,35 @@ func GCD(x, y int) int {
 		return p2
 	}
 	return GCD(p1%p2, p2)
+}
+
+func leetcode394(s string) string {
+	var ret string
+	var copyItem string
+	var repeatStart int
+	var repeatEnd int
+	var nums int
+	for _, v := range s {
+		if v > '0' && v < '9' {
+			nums = nums*10 + int(v - '0')
+		} else if v == '[' {
+			repeatStart++
+		} else if v == ']' {
+			repeatEnd++
+			if repeatStart == repeatEnd {
+				ret += strings.Repeat(copyItem, nums)
+				nums = 0
+				copyItem = ""
+			}else{
+				copyItem = strings.Repeat(copyItem, nums)
+			}
+		} else {
+			if repeatStart > repeatEnd {
+				copyItem += string(v)
+			}else{
+				ret += string(v)
+			}
+		}
+	}
+	return ret
 }

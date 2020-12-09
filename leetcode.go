@@ -852,6 +852,72 @@ func leetcode72(word1, word2 string) int {
 	return dp[len1][len2]
 }
 
+func leetcode91(s string) int {
+	var ret int
+
+	return ret
+}
+
+func leetcode93(s string) []string {
+	var ret []string
+	l := len(s)
+	if l < 4 || l > 12 {
+		return ret
+	}
+	dfs93([]byte(s), make([]byte, 0), 0, 0, &ret)
+	return ret
+}
+func dfs93(s []byte, ans []byte, count, index int, ret *[]string) {
+	if count >= 4 {
+		if len(s) == index {
+			*ret = append(*ret, string(ans))
+		}
+		return
+	}
+	if index + 1 <= len(s) {
+		tmp := make([]byte, len(ans))
+		copy(tmp, ans)
+		tmp = append(tmp, s[index])
+		if count + 1 < 4 {
+			tmp = append(tmp, '.')
+		}
+		dfs93(s, tmp, count+1, index+1, ret)
+	}
+	if index + 2 <= len(s) {
+		tmp := make([]byte, len(ans))
+		copy(tmp, ans)
+		if s[index] == '0' {
+			return
+		}
+		tmp = append(tmp, s[index:index+2]...)
+		if count + 1 < 4 {
+			tmp = append(tmp, '.')
+		}
+		dfs93(s, tmp, count+1, index+2, ret)
+	}
+	if index + 3 <= len(s) {
+		tmp := make([]byte, len(ans))
+		copy(tmp, ans)
+		if s[index] == '0' || s[index] > '2'{
+			return
+		}
+		if s[index] == '2' {
+			if s[index+1] > '5' {
+				return
+			} else if s[index+1] == '5' {
+				if s[index+2] > '5' {
+					return
+				}
+			}
+		}
+		tmp = append(tmp, s[index:index+3]...)
+		if count + 1 < 4 {
+			tmp = append(tmp, '.')
+		}
+		dfs93(s, tmp, count+1, index+3, ret)
+	}
+}
+
 //上一波上下边界要在 搜索二叉树范围内
 func leetcode98(root *TreeNode) bool {
 	return checkBST(root, math.MinInt64, math.MaxInt64)
