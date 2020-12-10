@@ -852,9 +852,47 @@ func leetcode72(word1, word2 string) int {
 	return dp[len1][len2]
 }
 
-func leetcode91(s string) int {
+//单调栈
+func leetcode84(height []int) int {
 	var ret int
 
+	return ret
+}
+
+func leetcode85(matrix [][]byte) int {
+	var ret int
+	if len(matrix) != 0 {
+		height := make([]int, len(matrix[0]), len(matrix[0]))
+		for row:=0; row<len(matrix); row++ {
+			for col:=0; col<len(matrix[0]); col++ {
+				if matrix[row][col] == '1' {
+					height[col]++
+				} else {
+					height[col] = 0
+				}
+			}
+			ans := leetcode84(height)
+			if ans > ret {
+				ret = ans
+			}
+		}
+	}
+	return ret
+}
+
+func leetcode91(s string) int {
+	var ret int
+	sb := []byte(s)
+	l := len(sb)
+	if l == 0 || sb[0] == '0' {
+		return 0
+	}
+	dp := make([]int, l, l)
+	dp[0] = 1
+	dp[1] = 1
+	for i:=1; i<l; i++ {
+
+	}
 	return ret
 }
 
