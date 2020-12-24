@@ -855,7 +855,55 @@ func leetcode72(word1, word2 string) int {
 //单调栈
 func leetcode84(height []int) int {
 	var ret int
-
+	if height == nil || len(height) == 0 {
+		return 0
+	}
+	ksline, vslice := make([]int, 0), make([]int, 0)
+	for k, v := range height {
+		if len(ksline) == 0 {
+			ksline = append(ksline, k)
+			vslice = append(vslice, v)
+		} else {
+			if v >= vslice[len(vslice)-1] {
+				ksline = append(ksline, k)
+				vslice = append(vslice, v)
+			} else {
+				i := len(vslice) - 1
+				for {
+					if i < 0 {
+						vslice, ksline = make([]int, 0), make([]int, 0)
+						ksline = append(ksline, k)
+						vslice = append(vslice, v)
+						//fmt.Println("append ", k, v)
+						break
+					}
+					if vslice[i] < v {
+						//fmt.Println("cut ", i, v, vslice, ksline)
+						vslice = vslice[:i+1]
+						vslice = append(vslice, v)
+						ksline = ksline[:i+1]
+						ksline = append(ksline, k)
+						//fmt.Println("after cut", vslice, ksline)
+						break
+					}
+					ans := (k - ksline[i])*vslice[i]
+					if ans > ret {
+						ret = ans
+					}
+					i--
+				}
+			}
+		}
+		//fmt.Println(vslice, ksline)
+	}
+	//fmt.Println("final ", vslice, ksline)
+	i := len(vslice) - 1
+	for j:=0; j<i; j ++{
+		ans := (ksline[i] - ksline[j])*vslice[j]
+		if ans > ret {
+			ret = ans
+		}
+	}
 	return ret
 }
 

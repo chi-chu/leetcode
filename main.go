@@ -26,7 +26,8 @@ func main() {
 	//fmt.Println(leetcode1013([]int{29,31,27,-10,-67,22,15,-1,-16,-29,59,-18,48}))
 	//fmt.Println(leetcode5("babad"))
 	//fmt.Println(leetcode394( "2[abc]3[cd]ef"))
-	fmt.Println(leetcode93("25525511135"))
+	//fmt.Println(leetcode93("25525511135"))
+	fmt.Println(leetcode84([]int{2,1,5,6,2,3}))
 }
 
 /*
